@@ -57,3 +57,24 @@ entity Producto {
         generico2       : String(100);
         generico3       : String(100);
 }
+
+entity Aspiracion {
+  key id_aspiracion: Integer @cds.auto;
+  aspirante : Association to Aspirante;
+  producto : Association to Producto;
+  // ... otros campos
+}
+
+entity Donacion {
+  key id_donacion: Integer @cds.auto;
+  donante : Association to Donante;
+  producto : Association to Producto;
+  // ... otros campos
+}
+
+entity Asignacion {
+  key id_asignacion: Integer @cds.auto;
+  aspirante : Association to Aspirante;
+  donante : Association to Donante;
+  // ... otros campos
+}
