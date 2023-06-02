@@ -14,11 +14,12 @@ entity Aspirante {
       correo             : String(100);
       direccion          : String(100);
       contrasena         : String(100);
-      haAspirado           : Boolean;
+      haAspirado         : Boolean;
       numeroAspiraciones : Integer default 0;
       universidad        : String(100);
       createdAt          : DateTime @cds.on.insert: $now;
       fecha_creacion     : Date;
+      modulo             : String(10);
 }
 
 entity Donante {
@@ -39,6 +40,7 @@ entity Donante {
       numeroDonaciones : Integer default 0;
       createdAt        : DateTime @cds.on.insert: $now;
       fecha_creacion   : Date;
+      modulo           : String(10);
 }
 
 entity Producto {
@@ -96,18 +98,18 @@ Empresa donde se pueda dar*/
 //MISMO ASPIRANTE, MISMO DONANTE, MISMO PRODUCTO, CAMBIAN ASPIRACIONES Y DONACIONES
 
 entity Area {
-  key id: UUID;
-  nombre: String(1000);
-  descripcion: String(1000);
-  imagen: String(1000);
+  key id          : UUID;
+      nombre      : String(1000);
+      descripcion : String(1000);
+      imagen      : String(1000);
 }
 
 
 entity Aspiracion_KR {
   key id_aspiracion  : UUID;
       aspirante      : Association to Aspirante;
-      producto       : Association to Producto;
-      area: Association to Area;
+      tipo           : String(100);
+      area           : String(100);
       createdAt      : DateTime @cds.on.insert: $now;
       fecha_creacion : Date;
 
@@ -115,9 +117,9 @@ entity Aspiracion_KR {
 
 entity Donacion_KR {
   key id_donacion    : UUID;
-      donante        : Association to Donante;
-      producto       : Association to Producto;
-      area: Association to Area;
+      empresa        : Association to Donante;
+      tipo           : String(100);
+      area           : String(100);
       createdAt      : DateTime @cds.on.insert: $now;
       fecha_creacion : Date;
 
@@ -126,11 +128,10 @@ entity Donacion_KR {
 entity Asignacion_KR {
   key id_asignacion  : UUID;
       aspirante      : Association to Aspirante;
-      donante        : Association to Donante;
-      producto       : Association to Producto;
-      area: Association to Area;
+      empresa        : Association to Donante;
+      tipo           : String(100);
+      area           : String(100);
       createdAt      : DateTime @cds.on.insert: $now;
       fecha_creacion : Date;
 
 }
-
