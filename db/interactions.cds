@@ -1,5 +1,20 @@
 namespace app.interactions;
 
+entity Fundacion {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      imagen         : String(1000);
+      telefono       : String(100);
+      correo         : String(100);
+      direccion      : String(100);
+      contrasena     : String(100);
+      universidad    : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+      modulo         : String(10);
+}
+
 entity Aspirante {
   key identificacion     : String(100);
       nombre             : String(100);
@@ -131,6 +146,196 @@ entity Asignacion_KR {
       empresa        : Association to Donante;
       tipo           : String(100);
       area           : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+
+}
+
+//AÑADIR SPONSOR QUE SI LA EMPRESA NO TIENE PARA PAGARLE AL PASANTE O PRACTICANTE ENTONCES ENTRA AQUÍ
+//PREGUNTAR LA LOGICA DE ESTA PARTE SI LA EMPRESA AL MOMENTO DE BUSCAR DEBE DECIR QUE NECESITA SPONSOR O EN LA ASIGNACIÖN VA LA ELECCION SI SE ELIGE SPONSOR O NO
+entity Sponsor {
+
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+
+}
+
+/*
+#KnowledgeProject
+Aspirante es una empresa que no tiene para adquirir projectos
+Donante es una empresa que dona esos projectos de automatizacion etc..
+Fabricante es el que puede donar la tecnologia
+*/
+
+entity ASPIRANTE_KP {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+}
+
+entity DONANTE_KP {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+}
+
+entity FABRICANTE_KP {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+}
+
+//ESTA ASPIRACION VA A TENER UN AREA DEL PROJECTO QUE SE NECESITA, UNA DESRIPCION Y VALOR ESTIMADO Y TIEMPO ESTIMADO DE ESE PROJECTO
+entity Aspiracion_KProject {
+  key id              : UUID;
+      aspirante       : Association to ASPIRANTE_KP;
+      area            : String(100);
+      descripcion     : String(1000); //DESCRIPCION DEL PROJECTO QUE SE NECESITA
+      presupuesto     : Integer;
+      tiempo_estimado : String(100);
+      createdAt       : DateTime @cds.on.insert: $now;
+      fecha_creacion  : Date;
+
+}
+
+// ESTA DONACION VA A TENER UN AREA DEL PROJECTO QUE SE QUIERE DONAR, UN VALOR TOPE DE LOS PROJECTOS QUE SE PUEDEN DONAR IGUAL QUE EL TIEMPO
+
+entity Donacion_KProject {
+  key id             : UUID;
+      donante        : Association to DONANTE_KP;
+      area           : String(100);
+      descripcion    : String(100); //QUE SABE HACER DE ESA AREA Y QUE PROJECTOSPUEDE HACER
+      valorTope      : Integer;
+      tiempoTope     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+
+}
+
+entity Asignacion_KProject {
+  key id_asignacion  : UUID;
+      aspirante      : Association to ASPIRANTE_KP;
+      donante        : Association to DONANTE_KP;
+      area           : String(100);
+      valor          : Integer;
+      tiempo         : Integer;
+      descripcion    : String(1000);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+
+}
+
+
+/*KnowledgeFactory
+Empresas que se postulan y dicen yo se hacer esto
+Empresas que dicen yo necesito de esto
+20% del valor del projecto va para los otros modulos
+
+*/
+
+
+entity KF_POSTULANTE {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+}
+
+entity KF_CLIENTE {
+  key identificacion : String(100);
+      nombre         : String(100);
+      ciudad         : String(100);
+      CEO            : String(100);
+      telefono       : String(100);
+      correo         : String(100);
+      imagen         : String(1000);
+      web            : String(1000);
+      direccion      : String(500);
+      contrasena     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+}
+
+
+// ESTA POSTULACION SE PONE EL AREA DE LA CUAL SE PUEDEN HACER PROJECTOS, DESCRIPCION DE LO QUE SE SABE HACER Y VALOR ESTIMADO DE ESA POSTULACION DE CAUNTO PUED COSTAR ESE DESARRROLLO
+entity KF_Postulacion {
+  key id              : UUID;
+      postulante      : Association to KF_POSTULANTE;
+      area            : String(100);
+      descripcion     : String(1000);
+      valor_estimado  : Integer;
+      tiempo_estimado : String(100);
+      createdAt       : DateTime @cds.on.insert: $now;
+      fecha_creacion  : Date;
+
+}
+
+// NECESIDAD ES QUE LA EMPRESA ESTE BUSCANDO DESARROLLLAR UN PROJECTO SE PONE EL AREA A LA CUAL PERTENECE ESE PROJECTO Y LA DESCRIPCION, TAMBIEN EL PRESUPUESTO ESTIMADO Y TIEMPO
+
+entity KF_Necesidad {
+  key id             : UUID;
+      donante        : Association to KF_CLIENTE;
+      area           : String(100);
+      descripcion    : String(1000);
+      presupuesto    : Integer;
+      tiempoTope     : String(100);
+      createdAt      : DateTime @cds.on.insert: $now;
+      fecha_creacion : Date;
+
+}
+
+entity KF_Asignacion {
+  key id_asignacion  : UUID;
+      aspirante      : Association to ASPIRANTE_KP;
+      donante        : Association to DONANTE_KP;
+      area           : String(100);
+      valor          : Integer;
+      tiempo         : Integer;
       createdAt      : DateTime @cds.on.insert: $now;
       fecha_creacion : Date;
 
