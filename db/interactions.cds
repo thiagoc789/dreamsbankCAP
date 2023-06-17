@@ -10,8 +10,6 @@ entity Fundacion {
       direccion      : String(100);
       contrasena     : String(100);
       universidad    : String(100);
-      createdAt      : DateTime @cds.on.insert: $now;
-      fecha_creacion : Date;
       modulo         : String(10);
 }
 

@@ -2,6 +2,8 @@ using {app.interactions as my} from '../db/interactions';
 
 service DreamsBankService {
 
+    entity Fundacion as projection on my.Fundacion;
+
     //KNOWLEDGE PEOPLE
 
     entity Aspirante           as projection on my.Aspirante;
@@ -32,7 +34,6 @@ service DreamsBankService {
     /*
     #KnowledgeFactory
     */
-
 
     entity KF_POSTULANTE       as projection on my.KF_POSTULANTE;
     entity KF_CLIENTE          as projection on my.KF_CLIENTE;
